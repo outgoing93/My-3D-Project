@@ -102,4 +102,15 @@ public class PlayerControll : MonoBehaviour
                 anim.SetBool("IsJump", false);
         }
     }
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Item"))
+        {
+            Item item = other.GetComponent<Item>();
+            if (item != null)
+            {
+                item.OnCollected();
+            }
+        }
+    }
 }
