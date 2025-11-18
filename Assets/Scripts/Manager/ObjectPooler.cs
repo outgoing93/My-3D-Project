@@ -27,7 +27,7 @@ public class ObjectPooler : MonoBehaviour
         }
     }
 
-    public GameObject GetFromPool(GameObject prefab)
+    public GameObject GetFromPool(GameObject prefab, ItemType type)
     {
         Pool pool = pools.Find(p => p.prefab == prefab);
         if (pool == null)
@@ -45,6 +45,15 @@ public class ObjectPooler : MonoBehaviour
 
         GameObject item = pool.objects.Dequeue();
         pool.objects.Enqueue(item);
+
+        // 활성화 및 타입 설정
+        item.SetActive(true);
+        Item itemScript = item.GetComponent<Item>();
+        if (itemScript != null)
+        {
+            itemScript.itemType = type;
+        }
+
         return item;
     }
 }

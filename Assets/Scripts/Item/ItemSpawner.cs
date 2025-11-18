@@ -9,7 +9,7 @@ public class ItemSpawner : MonoBehaviour
     [SerializeField] private GameObject minusItemPrefab;
     [SerializeField] private GameObject bombItemPrefab;
 
-    public float spawnInterval = 2f;
+    public float spawnInterval = 2f; 
     public Vector3 spawnAreaMin;
     public Vector3 spawnAreaMax;
 
@@ -33,13 +33,24 @@ public class ItemSpawner : MonoBehaviour
     private void SpawnRandomItem()
     {
         int rand = Random.Range(0, 3);
-        GameObject prefab = rand switch
+        GameObject prefab = null;
+        ItemType type = ItemType.Plus;
+
+        switch (rand)
         {
-            0 => plusItemPrefab,
-            1 => minusItemPrefab,
-            2 => bombItemPrefab,
-            _ => plusItemPrefab
-        };
+            case 0:
+                prefab = plusItemPrefab;
+                type = ItemType.Plus;
+                break;
+            case 1:
+                prefab = minusItemPrefab;
+                type = ItemType.Minus;
+                break;
+            case 2:
+                prefab = bombItemPrefab;
+                type = ItemType.Bomb;
+                break;
+        }
 
         Vector3 pos = new Vector3(
             Random.Range(spawnAreaMin.x, spawnAreaMax.x),
@@ -47,7 +58,7 @@ public class ItemSpawner : MonoBehaviour
             Random.Range(spawnAreaMin.z, spawnAreaMax.z)
         );
 
-        GameObject item = pooler.GetFromPool(prefab);
+        GameObject item = pooler.GetFromPool(prefab, type);
         if (item != null)
         {
             item.transform.position = pos;

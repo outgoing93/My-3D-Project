@@ -135,6 +135,7 @@ GameObject:
   - component: {fileID: 3941353}
   - component: {fileID: 3941352}
   - component: {fileID: 3941351}
+  - component: {fileID: 3941354}
   m_Layer: 5
   m_Name: QuitBtn
   m_TagString: Untagged
@@ -205,7 +206,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 3941352}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 3941354}
+        m_TargetAssemblyTypeName: UIButtons, Assembly-CSharp
+        m_MethodName: OnQuitButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &3941352
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -244,6 +257,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3941349}
   m_CullTransparentMesh: 1
+--- !u!114 &3941354
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3941349}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 959eb8c8c2884214dab3b00e89112a3c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &530869700
 GameObject:
   m_ObjectHideFlags: 0
@@ -390,6 +415,7 @@ GameObject:
   - component: {fileID: 535448709}
   - component: {fileID: 535448708}
   - component: {fileID: 535448707}
+  - component: {fileID: 535448711}
   m_Layer: 5
   m_Name: UI
   m_TagString: Untagged
@@ -482,6 +508,24 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &535448711
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 535448706}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18ca37b85853c594999d23c8cb4df580, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hpText: {fileID: 1235708368}
+  scoreText: {fileID: 1203308932}
+  highScoreText: {fileID: 1887228544}
+  gameOverPanel: {fileID: 1226367249}
+  restartButton: {fileID: 551179580}
+  quitButton: {fileID: 3941349}
 --- !u!1 &551179580
 GameObject:
   m_ObjectHideFlags: 0
@@ -494,6 +538,7 @@ GameObject:
   - component: {fileID: 551179584}
   - component: {fileID: 551179583}
   - component: {fileID: 551179582}
+  - component: {fileID: 551179585}
   m_Layer: 5
   m_Name: RestartBtn
   m_TagString: Untagged
@@ -564,7 +609,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 551179583}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 551179585}
+        m_TargetAssemblyTypeName: UIButtons, Assembly-CSharp
+        m_MethodName: OnRestartButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &551179583
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -603,6 +660,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 551179580}
   m_CullTransparentMesh: 1
+--- !u!114 &551179585
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 551179580}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 959eb8c8c2884214dab3b00e89112a3c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &557401810
 GameObject:
   m_ObjectHideFlags: 0
@@ -1698,7 +1767,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1668133634}
-  - component: {fileID: 1668133633}
   - component: {fileID: 1668133632}
   - component: {fileID: 1668133631}
   - component: {fileID: 1668133636}
@@ -1727,7 +1795,7 @@ BoxCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
@@ -1773,14 +1841,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!33 &1668133633
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1668133630}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!4 &1668133634
 Transform:
   m_ObjectHideFlags: 0
@@ -1790,7 +1850,7 @@ Transform:
   m_GameObject: {fileID: 1668133630}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.6, y: 6.7, z: 23.1}
+  m_LocalPosition: {x: 5, y: 5, z: 5}
   m_LocalScale: {x: 5, y: 5, z: 5}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1811,9 +1871,9 @@ MonoBehaviour:
   plusItemPrefab: {fileID: 6077776442939498813, guid: 915a347590e76b340bc2317b96d020f2, type: 3}
   minusItemPrefab: {fileID: 5772982895827142092, guid: f07f639670a7f9f4dad9fbaca841fd4b, type: 3}
   bombItemPrefab: {fileID: 6683058499025272907, guid: 145397023f27a214488c119a1a1bb034, type: 3}
-  spawnInterval: 2
-  spawnAreaMin: {x: 0, y: 2, z: 0}
-  spawnAreaMax: {x: 20, y: 2, z: 20}
+  spawnInterval: 0.5
+  spawnAreaMin: {x: -20, y: 1, z: -20}
+  spawnAreaMax: {x: 20, y: 5, z: 20}
 --- !u!114 &1668133636
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1831,8 +1891,8 @@ MonoBehaviour:
     size: 1
   - prefab: {fileID: 5772982895827142092, guid: f07f639670a7f9f4dad9fbaca841fd4b, type: 3}
     size: 1
-  - prefab: {fileID: 6077776442939498813, guid: 915a347590e76b340bc2317b96d020f2, type: 3}
-    size: 1
+  - prefab: {fileID: 6683058499025272907, guid: 145397023f27a214488c119a1a1bb034, type: 3}
+    size: 3
 --- !u!1 &1856739177
 GameObject:
   m_ObjectHideFlags: 0
@@ -1932,10 +1992,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   HP: 100
   maxHP: 100
-  hpText: {fileID: 1235708368}
-  scoreText: {fileID: 1203308932}
-  highScoreText: {fileID: 1887228544}
-  gameOverPanel: {fileID: 1226367249}
   hpDecreaseInterval: 1
   hpDecreaseAmount: 1
 --- !u!4 &1871266247
@@ -1965,7 +2021,7 @@ GameObject:
   - component: {fileID: 1887228545}
   - component: {fileID: 1887228544}
   m_Layer: 5
-  m_Name: SCORE
+  m_Name: HighScore
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

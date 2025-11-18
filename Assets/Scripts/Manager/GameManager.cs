@@ -1,7 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -10,12 +8,6 @@ public class GameManager : MonoBehaviour
     [Header("HP 설정")]
     [SerializeField] private int HP = 100;
     [SerializeField] private int maxHP = 100;
-
-    [Header("UI")]
-    [SerializeField] private TextMeshProUGUI hpText;
-    [SerializeField] private TextMeshProUGUI scoreText;
-    [SerializeField] private TextMeshProUGUI highScoreText;
-    [SerializeField] private GameObject gameOverPanel;
 
     [Header("HP 감소 설정")]
     [SerializeField] private float hpDecreaseInterval = 1f;
@@ -34,19 +26,22 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
 
         Cursor.lockState = CursorLockMode.Locked;
+
+        highScore = PlayerPrefs.GetInt("HighScore", 0);
     }
 
     private void Start()
     {
-        UpdateUI();
-        gameOverPanel.SetActive(false);
+        UIManager.Instance?.HideGameOver();
+        UIManager.Instance?.UpdateHP(HP);
+        UIManager.Instance?.UpdateScore(score, highScore);
+        
     }
 
     private void Update()
     {
-        if (gameOverPanel.activeSelf) return;
+        if (Time.timeScale == 0f) return; // 게임 오버 시 멈춤
 
-        // HP 감소
         hpTimer += Time.deltaTime;
         if (hpTimer >= hpDecreaseInterval)
         {
@@ -54,7 +49,6 @@ public class GameManager : MonoBehaviour
             hpTimer = 0f;
         }
 
-        // 점수 증가 (1초당 1점)
         scoreTimer += Time.deltaTime;
         if (scoreTimer >= 1f)
         {
@@ -65,9 +59,8 @@ public class GameManager : MonoBehaviour
 
     public void IncreaseHP(int amount)
     {
-        HP += amount;
-        if (HP > maxHP) HP = maxHP;
-        UpdateUI();
+        HP = Mathf.Min(HP + amount, maxHP);
+        UIManager.Instance?.UpdateHP(HP);
     }
 
     public void DecreaseHP(int amount)
@@ -78,7 +71,7 @@ public class GameManager : MonoBehaviour
             HP = 0;
             GameOver();
         }
-        UpdateUI();
+        UIManager.Instance?.UpdateHP(HP);
     }
 
     public void AddScore(int amount)
@@ -86,19 +79,28 @@ public class GameManager : MonoBehaviour
         score += amount;
         if (score > highScore)
             highScore = score;
-        UpdateUI();
-    }
 
-    public void UpdateUI()
-    {
-        hpText.text = "HP: " + HP;
-        scoreText.text = "Score: " + score;
-        highScoreText.text = "High Score: " + highScore;
+        PlayerPrefs.SetInt("HighScore", highScore);
+        PlayerPrefs.Save();
+
+        UIManager.Instance?.UpdateScore(score, highScore);
     }
 
     public void GameOver()
     {
-        gameOverPanel.SetActive(true);
+        Cursor.lockState = CursorLockMode.Confined;
+        UIManager.Instance?.ShowGameOver();
         Time.timeScale = 0f;
+    }
+
+    public void RestartGame()
+    {
+        Time.timeScale = 1f;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    public void QuitGame()
+    {
+        Application.Quit();
     }
 }
